@@ -25,8 +25,8 @@ class HomeFragment : Fragment() {
             )
         )
         setContent {
-            TvShowsTheme() {
-                Text(text = "HolaMundo", color = MaterialTheme.colors.surface)
+            TvShowsTheme {
+                HomeScreen()
             }
         }
 
