@@ -1,4 +1,4 @@
-package com.gscarlos.moviescleanarchitecture.ui.compose.theme
+package com.gscarlos.tvshowscarlosg.ui.compose.theme
 
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
@@ -8,13 +8,12 @@ val BackgroundLight = Color(0xFFFFFFFF)
 val BorderCardLight = Color(0x80DFDFDF)
 val GrayDark = Color(0xFF363636)
 val GreenLight = Color(0xFF19bc66)
-val SurfaceLight = Color(0xFF7b7b7b)
 
 val DarkColorPalette = darkColors(
     primary = Color.White,
     primaryVariant = GrayDark,
     secondary = Color.Blue,
-    surface = Color.White
+    surface = Color(0xFF2F2F2F)
 )
 
 val LightColorPalette = lightColors(
@@ -22,7 +21,7 @@ val LightColorPalette = lightColors(
     primaryVariant = GrayDark,
     secondary = GreenLight,
     background = BackgroundLight,
-    surface = SurfaceLight
+    surface = Color(0xFFFFFFFF),
 
     /* Other default colors to override
     surface = Color.White,
