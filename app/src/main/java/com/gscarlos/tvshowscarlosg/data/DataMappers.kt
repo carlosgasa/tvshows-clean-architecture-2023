@@ -1,6 +1,7 @@
 package com.gscarlos.tvshowscarlosg.data
 
 import com.gscarlos.tvshowscarlosg.data.remote.responses.TVShowDto
+import com.gscarlos.tvshowscarlosg.data.remote.responses.TVShowSearchedDto
 import com.gscarlos.tvshowscarlosg.domain.model.TVShow
 
 fun TVShowDto.toTvShow() = TVShow(
@@ -8,5 +9,22 @@ fun TVShowDto.toTvShow() = TVShow(
     name,
     show.network?.name ?: "",
     "$airdate | $airtime",
-    show.image.medium,
+    show.image?.medium ?: "",
 )
+
+fun TVShowSearchedDto.toTvShowSearched() = TVShow(
+    show.id,
+    show.name,
+    show.network?.name ?: "",
+    "${show.schedule.time} | ${show.schedule.days.toCustomString()}",
+    show.image?.medium ?: "",
+)
+
+private fun List<String>.toCustomString() = if (isEmpty()) ""
+else {
+    var result = ""
+    forEach {
+        result += "$it "
+    }
+    result
+}

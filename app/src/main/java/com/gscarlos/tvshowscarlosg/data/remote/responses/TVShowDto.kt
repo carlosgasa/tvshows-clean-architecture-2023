@@ -21,6 +21,11 @@ data class Rating (
     val average: Double? = null
 )
 
+data class Schedule (
+    val time: String,
+    val days: List<String>
+)
+
 data class Show (
     val id: Long,
     val url: String,
@@ -36,7 +41,8 @@ data class Show (
     val rating: Rating,
     val weight: Long,
     val network: Network? = null,
-    val image: Image,
+    val image: Image? = null,
+    val schedule: Schedule,
     val summary: String? = null,
     val updated: Long,
     val links: ShowLinks
@@ -51,7 +57,7 @@ data class Self (
 )
 
 data class Image (
-    val medium: String,
+    val medium: String? = null,
     val original: String
 )
 

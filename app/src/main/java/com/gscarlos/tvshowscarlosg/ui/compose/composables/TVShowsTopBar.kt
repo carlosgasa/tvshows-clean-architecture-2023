@@ -24,6 +24,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gscarlos.tvshowscarlosg.R
+import com.gscarlos.tvshowscarlosg.commons.toLargeFormat
 import com.gscarlos.tvshowscarlosg.ui.compose.theme.TvShowsTheme
 import java.util.*
 
@@ -59,7 +60,7 @@ fun SearchBar(
                 imeAction = ImeAction.Search
             ),
             keyboardActions = KeyboardActions(onSearch = {
-                if(query.text.isNotEmpty()) {
+                if(query.text.trim().isNotEmpty()) {
                     onSearch(query.text)
                 }
             }),
@@ -117,7 +118,7 @@ fun TVShowsTopBar(onSearch: (String) -> Unit, onClose: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(start = 16.dp)
             ) {
-                Text(text = Date().toLocaleString(), modifier = Modifier.weight(1f))
+                Text(text = Date().toLargeFormat(), modifier = Modifier.weight(1f))
                 IconButton(
                     onClick = {
                         queryVisible = true
