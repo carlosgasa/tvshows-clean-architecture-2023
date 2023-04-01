@@ -1,6 +1,7 @@
 package com.gscarlos.tvshowscarlosg.ui.compose.composables
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -15,8 +16,11 @@ import com.gscarlos.tvshowscarlosg.domain.model.TVShow
 import com.gscarlos.tvshowscarlosg.ui.compose.theme.*
 
 @Composable
-fun TVShowItem(show: TVShow, modifier: Modifier) {
-    BaseCard(modifier = modifier.fillMaxWidth()) {
+fun TVShowItem(show: TVShow, modifier: Modifier, onClickItem: (String) -> Unit) {
+    BaseCard(
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { onClickItem(show.id.toString()) }) {
         Row(
             modifier = Modifier.padding(8.dp),
         ) {
@@ -73,6 +77,6 @@ fun TVShowItemPreview() {
                 imageMedium = ""
             ),
             modifier = Modifier
-        )
+        ) {}
     }
 }

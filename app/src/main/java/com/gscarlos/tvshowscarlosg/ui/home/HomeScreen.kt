@@ -20,7 +20,7 @@ import com.gscarlos.tvshowscarlosg.ui.compose.theme.GreenLight
 
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
+fun HomeScreen(viewModel: HomeViewModel = viewModel(), onClickItem: (String) -> Unit) {
     val showsState = viewModel.tvShowsState.collectAsState().value
     val showsSearchedState = viewModel.tvSearchedShowsState.collectAsState().value
 
@@ -29,7 +29,7 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
     var searchVisible by remember { mutableStateOf(false) }
     var loading by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf(false) }
-    var errorType : DataResultError = DataResultError.NoError
+    var errorType: DataResultError = DataResultError.NoError
 
 
     when (showsState) {
@@ -89,7 +89,8 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
             searchVisible -> {
                 SearchedTVShowsContent(
                     modifier = Modifier.padding(contentPadding),
-                    tvShows = searchedTvShows
+                    tvShows = searchedTvShows,
+                    onClickItem = onClickItem
                 )
             }
             else -> {
@@ -100,7 +101,8 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
                 } else {
                     TodayTVShowsContent(
                         modifier = Modifier.padding(contentPadding),
-                        tvShows = todayTvShows
+                        tvShows = todayTvShows,
+                        onClickItem = onClickItem
                     )
                 }
 
@@ -112,13 +114,18 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
 @Composable
 fun TodayTVShowsContent(
     modifier: Modifier = Modifier,
-    tvShows: List<TVShow>
+    tvShows: List<TVShow>,
+    onClickItem: (String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
     ) {
         items(tvShows) {
-            TVShowItem(it, modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp))
+            TVShowItem(
+                show = it,
+                modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
+                onClickItem = onClickItem
+            )
         }
     }
 }
@@ -127,13 +134,18 @@ fun TodayTVShowsContent(
 @Composable
 fun SearchedTVShowsContent(
     modifier: Modifier = Modifier,
-    tvShows: List<TVShow>
+    tvShows: List<TVShow>,
+    onClickItem: (String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
     ) {
         items(tvShows) {
-            TVShowItem(it, modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp))
+            TVShowItem(
+                show = it,
+                modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
+                onClickItem = onClickItem
+            )
         }
     }
 

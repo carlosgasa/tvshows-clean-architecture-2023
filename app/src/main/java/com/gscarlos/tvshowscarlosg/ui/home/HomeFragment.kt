@@ -3,12 +3,13 @@ package com.gscarlos.tvshowscarlosg.ui.home
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.gscarlos.tvshowscarlosg.R
 import com.gscarlos.tvshowscarlosg.ui.compose.theme.TvShowsTheme
+import com.gscarlos.tvshowscarlosg.ui.detail.DetailFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,7 +27,12 @@ class HomeFragment : Fragment() {
         )
         setContent {
             TvShowsTheme {
-                HomeScreen()
+                HomeScreen() {
+                    findNavController().navigate(
+                        R.id.action_homeFragment_to_detailFragment,
+                        DetailFragment.getBundle(it)
+                    )
+                }
             }
         }
 
