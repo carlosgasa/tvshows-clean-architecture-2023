@@ -1,8 +1,7 @@
 package com.gscarlos.tvshowscarlosg.ui.home
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
@@ -10,12 +9,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.gscarlos.tvshowscarlosg.data.remote.DataResultError.NoInternetError.getMessage
+import com.gscarlos.tvshowscarlosg.data.remote.DataResultError
 import com.gscarlos.tvshowscarlosg.domain.model.TVShow
 import com.gscarlos.tvshowscarlosg.ui.compose.composables.TVShowItem
 import com.gscarlos.tvshowscarlosg.ui.compose.composables.TVShowsTopBar
+import com.gscarlos.tvshowscarlosg.ui.compose.theme.GreenLight
 
 
 @Composable
@@ -28,14 +29,13 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
     var searchVisible by remember { mutableStateOf(false) }
     var loading by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf(false) }
-    var errorMessage by remember { mutableStateOf("") }
+    var errorType : DataResultError = DataResultError.NoError
 
-    val context = LocalContext.current
 
     when (showsState) {
         is HomeViewState.Error -> {
             error = true
-            errorMessage = showsState.type.getMessage(context)
+            errorType = showsState.type
         }
         HomeViewState.Loading -> loading = true
         is HomeViewState.TVShowsSuccess -> {
@@ -48,7 +48,7 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
     when (showsSearchedState) {
         is HomeViewState.Error -> {
             error = true
-            errorMessage = showsSearchedState.type.getMessage(context)
+            errorType = showsSearchedState.type
         }
         HomeViewState.Loading -> loading = true
         is HomeViewState.TVShowsSuccess -> {
@@ -66,6 +66,7 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
             TVShowsTopBar(
                 onClose = {
                     searchVisible = false
+                    error = false
                 },
                 onSearch = {
                     searchVisible = true
@@ -81,8 +82,8 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
                 }
             }
             error -> {
-                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(text = errorMessage)
+                ShowInfoState(errorType) {
+                    viewModel.loadTVShows()
                 }
             }
             searchVisible -> {
@@ -92,10 +93,17 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
                 )
             }
             else -> {
-                TodayTVShowsContent(
-                    modifier = Modifier.padding(contentPadding),
-                    tvShows = todayTvShows
-                )
+                if (todayTvShows.isEmpty()) {
+                    ShowInfoState(errorType) {
+                        viewModel.loadTVShows()
+                    }
+                } else {
+                    TodayTVShowsContent(
+                        modifier = Modifier.padding(contentPadding),
+                        tvShows = todayTvShows
+                    )
+                }
+
             }
         }
     }
@@ -129,4 +137,32 @@ fun SearchedTVShowsContent(
         }
     }
 
+}
+
+@Composable
+fun ShowInfoState(
+    error: DataResultError,
+    onClick: (() -> Unit)? = null
+) {
+    val context = LocalContext.current
+    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Image(
+                modifier = Modifier.padding(
+                    top = 100.dp,
+                    end = 100.dp,
+                    start = 100.dp,
+                    bottom = 20.dp
+                ),
+                painter = painterResource(id = error.getImage()),
+                contentDescription = "No data found"
+            )
+            Text(text = error.getMessage(context), Modifier.padding(16.dp))
+            error.getAction(context)?.let {
+                OutlinedButton(onClick = { onClick?.invoke() }) {
+                    Text(text = it, color = GreenLight)
+                }
+            }
+        }
+    }
 }

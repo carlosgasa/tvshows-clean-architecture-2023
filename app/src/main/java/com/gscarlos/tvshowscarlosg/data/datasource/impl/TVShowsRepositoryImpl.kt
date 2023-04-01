@@ -62,7 +62,7 @@ class TVShowsRepositoryImpl @Inject constructor(
                     }
                 }
             } else {
-                emit(DataResult.Error(DataResultError.NoInternetError))
+                emit(DataResult.Error(DataResultError.NoInternetErrorSearch))
             }
         }
 

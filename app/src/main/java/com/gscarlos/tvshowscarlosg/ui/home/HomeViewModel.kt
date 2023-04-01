@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(
         loadTVShows()
     }
 
-    private fun loadTVShows() {
+    fun loadTVShows() {
         viewModelScope.launch {
             repository.loadTVShows(Date().toShortFormat()).collect {
                 when (it) {

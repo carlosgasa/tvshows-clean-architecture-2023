@@ -13,5 +13,6 @@
     <string name="error_internet">Parece que no tienes Internet, revisa tu conexion</string>
     <string name="error_empty">No se encontro informacion, intenta mas tarde</string>
     <string name="error_service">Ocurrio algo inesperado, intenta mas tarde</string>
+    <string name="txt_retry">Reintentar</string>
 
 </resources>
