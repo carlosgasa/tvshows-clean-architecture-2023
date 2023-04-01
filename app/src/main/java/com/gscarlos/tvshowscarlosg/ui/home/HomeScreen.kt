@@ -9,8 +9,10 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.gscarlos.tvshowscarlosg.data.remote.DataResultError.NoInternetError.getMessage
 import com.gscarlos.tvshowscarlosg.domain.model.TVShow
 import com.gscarlos.tvshowscarlosg.ui.compose.composables.TVShowItem
 import com.gscarlos.tvshowscarlosg.ui.compose.composables.TVShowsTopBar
@@ -20,6 +22,7 @@ import com.gscarlos.tvshowscarlosg.ui.compose.composables.TVShowsTopBar
 fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
     val showsState = viewModel.tvShowsState.collectAsState().value
     val showsSearchedState = viewModel.tvSearchedShowsState.collectAsState().value
+
     var todayTvShows = listOf<TVShow>()
     var searchedTvShows = listOf<TVShow>()
     var searchVisible by remember { mutableStateOf(false) }
@@ -27,10 +30,12 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
     var error by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf("") }
 
+    val context = LocalContext.current
+
     when (showsState) {
         is HomeViewState.Error -> {
             error = true
-            errorMessage = showsState.message
+            errorMessage = showsState.type.getMessage(context)
         }
         HomeViewState.Loading -> loading = true
         is HomeViewState.TVShowsSuccess -> {
@@ -43,7 +48,7 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
     when (showsSearchedState) {
         is HomeViewState.Error -> {
             error = true
-            errorMessage = showsSearchedState.message
+            errorMessage = showsSearchedState.type.getMessage(context)
         }
         HomeViewState.Loading -> loading = true
         is HomeViewState.TVShowsSuccess -> {
@@ -83,31 +88,28 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
             searchVisible -> {
                 SearchedTVShowsContent(
                     modifier = Modifier.padding(contentPadding),
-                    properties = SearchedTVShowsContentProperties(searchedTvShows)
+                    tvShows = searchedTvShows
                 )
             }
             else -> {
                 TodayTVShowsContent(
                     modifier = Modifier.padding(contentPadding),
-                    properties = TodayTVShowsContentProperties(todayTvShows)
+                    tvShows = todayTvShows
                 )
             }
         }
     }
 }
 
-data class TodayTVShowsContentProperties(val tvShows: List<TVShow>)
-data class SearchedTVShowsContentProperties(val tvShows: List<TVShow>)
-
 @Composable
 fun TodayTVShowsContent(
     modifier: Modifier = Modifier,
-    properties: TodayTVShowsContentProperties
+    tvShows: List<TVShow>
 ) {
     LazyColumn(
         modifier = modifier
     ) {
-        items(properties.tvShows) {
+        items(tvShows) {
             TVShowItem(it, modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp))
         }
     }
@@ -117,12 +119,12 @@ fun TodayTVShowsContent(
 @Composable
 fun SearchedTVShowsContent(
     modifier: Modifier = Modifier,
-    properties: SearchedTVShowsContentProperties
+    tvShows: List<TVShow>
 ) {
     LazyColumn(
         modifier = modifier
     ) {
-        items(properties.tvShows) {
+        items(tvShows) {
             TVShowItem(it, modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp))
         }
     }

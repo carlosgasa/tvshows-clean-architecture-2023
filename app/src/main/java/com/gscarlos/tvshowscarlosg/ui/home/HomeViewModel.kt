@@ -32,9 +32,9 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             repository.loadTVShows(Date().toShortFormat()).collect {
                 when (it) {
-                    is DataResult.Error -> _tvShowsState.value = HomeViewState.Error(it.message)
-                    is DataResult.Loading -> _tvShowsState.value = HomeViewState.Loading
-                    is DataResult.Success -> _tvShowsState.value = HomeViewState.TVShowsSuccess(it.tvShows)
+                    is DataResult.Error -> _tvShowsState.value = HomeViewState.Error(it.errorType)
+                    DataResult.Loading -> _tvShowsState.value = HomeViewState.Loading
+                    is DataResult.Success -> _tvShowsState.value = HomeViewState.TVShowsSuccess(it.data)
                 }
             }
         }
@@ -44,9 +44,9 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             repository.searchTVShows(query).collect {
                 when (it) {
-                    is DataResult.Error -> _tvSearchedShowsState.value = HomeViewState.Error(it.message)
-                    is DataResult.Loading -> _tvSearchedShowsState.value = HomeViewState.Loading
-                    is DataResult.Success -> _tvSearchedShowsState.value = HomeViewState.TVShowsSuccess(it.tvShows)
+                    is DataResult.Error -> _tvSearchedShowsState.value = HomeViewState.Error(it.errorType)
+                    DataResult.Loading -> _tvSearchedShowsState.value = HomeViewState.Loading
+                    is DataResult.Success -> _tvSearchedShowsState.value = HomeViewState.TVShowsSuccess(it.data)
                 }
             }
         }
