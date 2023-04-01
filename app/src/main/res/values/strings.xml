@@ -14,5 +14,7 @@
     <string name="error_empty">No se encontro informacion, intenta mas tarde</string>
     <string name="error_service">Ocurrio algo inesperado, intenta mas tarde</string>
     <string name="txt_retry">Reintentar</string>
+    <string name="txt_visit_site">Visitar sitio</string>
+    <string name="lbl_image_show">image show</string>
 
 </resources>

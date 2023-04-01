@@ -4,6 +4,7 @@ import com.gscarlos.tvshowscarlosg.data.remote.responses.Show
 import com.gscarlos.tvshowscarlosg.data.remote.responses.TVShowDto
 import com.gscarlos.tvshowscarlosg.data.remote.responses.TVShowSearchedDto
 import com.gscarlos.tvshowscarlosg.domain.model.TVShow
+import com.gscarlos.tvshowscarlosg.domain.model.TVShowDetail
 
 fun TVShowDto.toTvShow() = TVShow(
     id,
@@ -21,19 +22,25 @@ fun TVShowSearchedDto.toTvShowSearched() = TVShow(
     show.image?.medium ?: "",
 )
 
-fun Show.toTvShow() = TVShow(
+fun Show.toTvShowDetail() = TVShowDetail(
     id,
     name,
     network?.name ?: "",
     "${schedule.time} | ${schedule.days.toCustomString()}",
     image?.medium ?: "",
+    links?.self?.href ?: "",
+    rating.average.toString(),
+    summary?: "",
+    genres.toCustomString(),
+
 )
 
 private fun List<String>.toCustomString() = if (isEmpty()) ""
 else {
     var result = ""
-    forEach {
-        result += "$it "
+    forEachIndexed { index, it ->
+        result += if(index == size - 1) it
+        else "$it, "
     }
     result
 }

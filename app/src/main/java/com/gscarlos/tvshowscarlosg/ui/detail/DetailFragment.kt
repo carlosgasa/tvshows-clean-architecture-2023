@@ -1,6 +1,8 @@
 package com.gscarlos.tvshowscarlosg.ui.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.gscarlos.tvshowscarlosg.commons.loadImage
+import com.gscarlos.tvshowscarlosg.commons.toHtml
 import com.gscarlos.tvshowscarlosg.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -42,9 +46,28 @@ class DetailFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initUiState() = with(binding) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.detailState.flowWithLifecycle(viewLifecycleOwner.lifecycle).collect {
+                when(it) {
+                    DetailUiState.Start -> {}
+                    is DetailUiState.SuccessData -> {
+                        ivPortada.loadImage(it.tvShow.imageMedium)
+                        tvTitle.text = it.tvShow.name
+                        tvNetwork.text = it.tvShow.network
+                        tvRating.text = "Rating: ${it.tvShow.rating}"
+                        tvSummary.text = "<b>Sinopsis:</b> <br /> ${it.tvShow.summary}".toHtml()
+                        tvGenres.text = "<b>Géneros:</b> ${it.tvShow.genres}".toHtml()
+                        tvTime.text = "<b>Horario:</b> ${it.tvShow.dates}".toHtml()
+                    }
+                    is DetailUiState.Error -> {
+
+                    }
+                    DetailUiState.Loading -> {
+
+                    }
+                }
 
             }
         }

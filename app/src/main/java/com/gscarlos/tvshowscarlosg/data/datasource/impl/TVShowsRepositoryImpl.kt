@@ -7,8 +7,10 @@ import com.gscarlos.tvshowscarlosg.data.remote.DataResult
 import com.gscarlos.tvshowscarlosg.data.remote.DataResultError
 import com.gscarlos.tvshowscarlosg.data.remote.TVShowsApiService
 import com.gscarlos.tvshowscarlosg.data.toTvShow
+import com.gscarlos.tvshowscarlosg.data.toTvShowDetail
 import com.gscarlos.tvshowscarlosg.data.toTvShowSearched
 import com.gscarlos.tvshowscarlosg.domain.model.TVShow
+import com.gscarlos.tvshowscarlosg.domain.model.TVShowDetail
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -66,13 +68,13 @@ class TVShowsRepositoryImpl @Inject constructor(
             }
         }
 
-    override suspend fun detailTVShow(idShow: String): Flow<DataResult<TVShow, DataResultError>> =
+    override suspend fun detailTVShow(idShow: String): Flow<DataResult<TVShowDetail, DataResultError>> =
         flow {
             if (InternetUtils.isNetworkAvailable(context)) {
                 emit(DataResult.Loading)
                 apiService.getShowDetail(idShow).apply {
                     if (isSuccessful && body() != null) {
-                        emit(DataResult.Success(data = body()!!.toTvShow()))
+                        emit(DataResult.Success(data = body()!!.toTvShowDetail()))
                     } else {
                         emit(DataResult.Error(DataResultError.ServiceError))
                     }

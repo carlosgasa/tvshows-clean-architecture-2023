@@ -1,5 +1,6 @@
 package com.gscarlos.tvshowscarlosg.ui.detail
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gscarlos.tvshowscarlosg.data.datasource.TVShowsRepository
@@ -23,8 +24,8 @@ class DetailViewModel @Inject constructor(
         viewModelScope.launch {
             repository.detailTVShow(idShow).collectLatest {
                 when (it) {
-                    is DataResult.Error -> {}
-                    DataResult.Loading -> {}
+                    is DataResult.Error -> _detailState.value = DetailUiState.Error(it.errorType)
+                    DataResult.Loading -> _detailState.value = DetailUiState.Loading
                     is DataResult.Success -> _detailState.value = DetailUiState.SuccessData(it.data)
 
                 }

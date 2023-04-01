@@ -35,7 +35,7 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_margin="@dimen/margin_big">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,25 +47,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.4"/>
+                    app:layout_constraintGuide_percent="0.3"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideImage2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.7"/>
 
                 <ImageView
                     android:id="@+id/iv_portada"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintWidth_percent="0.4"
+                    app:layout_constraintWidth_percent="0.3"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/guideImage"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:srcCompat="@tools:sample/backgrounds/scenic"
                     tools:layout_height="200dp"
-                    android:contentDescription="@string/lbl_image_show" />
+                    android:contentDescription="@string/lbl_image_show"/>
 
                 <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginStart="@dimen/margin_big"
                     android:layout_marginTop="@dimen/margin_big"
                     tools:text="Game Shakers"
                     android:textStyle="bold"
@@ -79,7 +86,7 @@
                     android:id="@+id/tv_network"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginStart="@dimen/margin_big"
                     app:layout_constraintTop_toBottomOf="@id/tv_title"
                     app:layout_constraintStart_toEndOf="@id/guideImage"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +97,7 @@
                     android:id="@+id/tv_rating"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginStart="@dimen/margin_big"
                     app:layout_constraintTop_toBottomOf="@id/tv_network"
                     app:layout_constraintStart_toEndOf="@id/guideImage"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -103,37 +110,48 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginTop="@dimen/margin_big"
+                    android:layout_marginTop="@dimen/margin_biggest"
                     android:maxWidth="@dimen/max_dimen_button"
-                    app:layout_constraintTop_toBottomOf="@id/tv_rating"
-                    app:layout_constraintStart_toEndOf="@id/guideImage"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideImage2"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:text="@string/txt_visit_site"
                     />
 
+                <TextView
+                    android:id="@+id/tv_summary"
+                    android:paddingTop="@dimen/margin_big"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_big"
+                    android:layout_marginTop="@dimen/margin_big"
+                    app:layout_constraintTop_toBottomOf="@id/btn_site"
+                    app:layout_constraintStart_toEndOf="@id/guideImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="Sinopsis"/>
+
+                <TextView
+                    android:id="@+id/tv_genres"
+                    android:paddingTop="@dimen/margin_big"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_portada"
+                    app:layout_constraintEnd_toEndOf="@id/guideImage"
+                    tools:text="Generos"/>
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:paddingTop="@dimen/margin_big"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_genres"
+                    app:layout_constraintEnd_toEndOf="@id/guideImage"
+                    tools:text="Horarios"/>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/tv_summary"
-                android:paddingTop="@dimen/margin_big"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Sinopsis"/>
-
-            <TextView
-                android:id="@+id/tv_genres"
-                android:paddingTop="@dimen/margin_big"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Sinopsis"/>
-
-            <TextView
-                android:id="@+id/tv_time"
-                android:paddingTop="@dimen/margin_big"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Sinopsis"/>
-
         </LinearLayout>
     </ScrollView>
 

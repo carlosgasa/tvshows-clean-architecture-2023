@@ -45,11 +45,11 @@ data class Show (
     val schedule: Schedule,
     val summary: String? = null,
     val updated: Long,
-    val links: ShowLinks
+    val links: ShowLinks? = null
 )
 
 data class ShowLinks (
-    val self: Self,
+    val self: Self? = null,
 )
 
 data class Self (
