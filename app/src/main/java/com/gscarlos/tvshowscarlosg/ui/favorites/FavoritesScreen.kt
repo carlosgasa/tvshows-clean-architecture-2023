@@ -1,6 +1,5 @@
 package com.gscarlos.tvshowscarlosg.ui.favorites
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding

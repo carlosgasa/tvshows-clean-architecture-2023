@@ -1,7 +1,6 @@
 package com.gscarlos.tvshowscarlosg.ui.detail
 
 import android.annotation.SuppressLint
-import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,7 +27,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.gscarlos.tvshowscarlosg.commons.isTablet
 import com.gscarlos.tvshowscarlosg.commons.loadImage
 import com.gscarlos.tvshowscarlosg.commons.toHtml
 import com.gscarlos.tvshowscarlosg.data.DataResultError
@@ -72,14 +70,14 @@ class DetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.detailState.flowWithLifecycle(viewLifecycleOwner.lifecycle).collect {
                 when (it) {
-                    DetailUiState.Start -> {}
-                    is DetailUiState.SuccessData -> {
+                    DetailViewState.Start -> {}
+                    is DetailViewState.SuccessData -> {
                         fillContent(it.tvShow)
                     }
-                    is DetailUiState.Error -> {
+                    is DetailViewState.Error -> {
                         resolveError(it.type)
                     }
-                    DetailUiState.Loading -> {
+                    DetailViewState.Loading -> {
                         loading()
                     }
                 }
