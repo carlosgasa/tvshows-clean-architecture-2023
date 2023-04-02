@@ -7,7 +7,8 @@ Principales caracteristiscas
 - Inyeccion de dependencias
 - TDD
 - Persistencia de datos para favoritos
-- Uso de camara nativa
+- Splash screen
+- Manejo de orientacion para tablet y bobile
 - Pruebas unitarias
 
 ### Librerias y versiones
@@ -49,7 +50,7 @@ Principales caracteristiscas
 <img src="images/home.png">
 <img src="images/estadoshome.png">
 
-## Detalle (xml y compose)
+## Detalle (xml y compose, chrome custom tabs)
 <img src="images/detalle.png">
 <img src="images/detalle2.png">
 
