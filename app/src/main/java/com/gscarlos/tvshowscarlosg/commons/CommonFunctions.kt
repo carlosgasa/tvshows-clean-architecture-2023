@@ -1,19 +1,13 @@
 package com.gscarlos.tvshowscarlosg.commons
 
+import android.content.Context
+import android.content.res.Configuration
 import android.text.Html
 import android.text.Spanned
 import android.text.format.DateFormat
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import java.util.*
-
-fun trySafely(call: () -> Unit) = run {
-    try {
-        call()
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
-}
 
 fun Date.toShortFormat(): String {
     val c = Calendar.getInstance()
@@ -33,3 +27,7 @@ fun ImageView.loadImage(source: String) {
 
 fun String.toHtml(): Spanned =
     Html.fromHtml(this, Html.FROM_HTML_MODE_COMPACT)
+
+fun Context.isTablet(): Boolean {
+    return ((resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE)
+}

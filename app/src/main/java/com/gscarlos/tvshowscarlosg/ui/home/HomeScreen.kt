@@ -165,7 +165,7 @@ fun ShowInfoState(
                     end = 100.dp,
                     start = 100.dp,
                     bottom = 20.dp
-                ),
+                ).size(150.dp),
                 painter = painterResource(id = error.getImage()),
                 contentDescription = "No data found"
             )

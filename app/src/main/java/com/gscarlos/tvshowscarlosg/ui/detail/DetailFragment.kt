@@ -1,13 +1,12 @@
 package com.gscarlos.tvshowscarlosg.ui.detail
 
 import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsIntent.COLOR_SCHEME_DARK
 import androidx.compose.foundation.layout.Box
@@ -23,15 +22,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.viewbinding.BuildConfig
-import com.gscarlos.tvshowscarlosg.R
+import com.gscarlos.tvshowscarlosg.commons.isTablet
 import com.gscarlos.tvshowscarlosg.commons.loadImage
 import com.gscarlos.tvshowscarlosg.commons.toHtml
 import com.gscarlos.tvshowscarlosg.data.DataResultError
