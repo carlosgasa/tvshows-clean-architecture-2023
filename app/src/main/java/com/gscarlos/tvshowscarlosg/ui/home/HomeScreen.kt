@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -18,6 +19,7 @@ import com.gscarlos.tvshowscarlosg.domain.model.TVShow
 import com.gscarlos.tvshowscarlosg.ui.compose.composables.OnLifecycleEvent
 import com.gscarlos.tvshowscarlosg.ui.compose.composables.TVShowItem
 import com.gscarlos.tvshowscarlosg.ui.compose.composables.TVShowsTopBar
+import com.gscarlos.tvshowscarlosg.ui.compose.theme.BorderCardLight
 import com.gscarlos.tvshowscarlosg.ui.compose.theme.GrayDark
 import com.gscarlos.tvshowscarlosg.ui.compose.theme.GreenLight
 
@@ -206,7 +208,7 @@ fun ShowInfoState(
             )
             error.getAction(context)?.let {
                 OutlinedButton(onClick = { onClick?.invoke() }) {
-                    Text(text = it, color = GrayDark)
+                    Text(text = it, color = Color(0xFFBB86FC))
                 }
             }
         }
