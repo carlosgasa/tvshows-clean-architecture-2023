@@ -8,7 +8,7 @@ Principales caracteristiscas
 - TDD
 - Persistencia de datos para favoritos
 - Splash screen
-- Manejo de orientacion para tablet y bobile
+- Manejo de orientacion para tablet y mobile
 - Pruebas unitarias
 
 ### Librerias y versiones
