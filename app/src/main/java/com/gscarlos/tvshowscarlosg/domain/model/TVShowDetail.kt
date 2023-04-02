@@ -10,4 +10,5 @@ data class TVShowDetail(
     val rating: String,
     val summary: String,
     val genres: String,
+    val cast: List<Person>
 )

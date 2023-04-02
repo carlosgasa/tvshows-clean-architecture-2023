@@ -1,6 +1,6 @@
 package com.gscarlos.tvshowscarlosg.ui.home
 
-import com.gscarlos.tvshowscarlosg.data.remote.DataResultError
+import com.gscarlos.tvshowscarlosg.data.DataResultError
 import com.gscarlos.tvshowscarlosg.domain.model.TVShow
 
 sealed class HomeViewState {

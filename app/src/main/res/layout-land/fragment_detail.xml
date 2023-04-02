@@ -130,6 +130,17 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="Sinopsis"/>
 
+                <androidx.compose.ui.platform.ComposeView
+                    android:id="@+id/cv_cast"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="@dimen/margin_big"
+                    android:layout_marginTop="@dimen/margin_small"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_summary"
+                    app:layout_constraintStart_toEndOf="@id/guideImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:paddingTop="@dimen/margin_big" />
+
                 <TextView
                     android:id="@+id/tv_genres"
                     android:paddingTop="@dimen/margin_big"

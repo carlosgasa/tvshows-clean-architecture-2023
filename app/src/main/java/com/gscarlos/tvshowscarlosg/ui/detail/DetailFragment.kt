@@ -6,6 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Text
+import androidx.compose.ui.unit.dp
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import com.gscarlos.tvshowscarlosg.commons.loadImage
 import com.gscarlos.tvshowscarlosg.commons.toHtml
 import com.gscarlos.tvshowscarlosg.databinding.FragmentDetailBinding
+import com.gscarlos.tvshowscarlosg.ui.compose.composables.PersonItem
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -60,6 +67,18 @@ class DetailFragment : Fragment() {
                         tvSummary.text = "<b>Sinopsis:</b> <br /> ${it.tvShow.summary}".toHtml()
                         tvGenres.text = "<b>Géneros:</b> ${it.tvShow.genres}".toHtml()
                         tvTime.text = "<b>Horario:</b> ${it.tvShow.dates}".toHtml()
+                        cvCast.setContent { 
+                            if (it.tvShow.cast.isNotEmpty()) {
+                                Column() {
+                                    Text(text = "Talentos:")
+                                    LazyRow(contentPadding = PaddingValues(vertical = 4.dp)) {
+                                        items(it.tvShow.cast) { person ->
+                                            PersonItem(person = person)
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                     is DetailUiState.Error -> {
 

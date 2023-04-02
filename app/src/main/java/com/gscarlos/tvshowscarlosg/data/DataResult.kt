@@ -1,4 +1,4 @@
-package com.gscarlos.tvshowscarlosg.data.remote
+package com.gscarlos.tvshowscarlosg.data
 
 import android.content.Context
 import com.gscarlos.tvshowscarlosg.R

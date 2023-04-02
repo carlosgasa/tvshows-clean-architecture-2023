@@ -1,14 +1,11 @@
 package com.gscarlos.tvshowscarlosg.data.datasource.impl
 
 import android.content.Context
+import android.util.Log
 import com.gscarlos.tvshowscarlosg.commons.InternetUtils
+import com.gscarlos.tvshowscarlosg.data.*
 import com.gscarlos.tvshowscarlosg.data.datasource.TVShowsRepository
-import com.gscarlos.tvshowscarlosg.data.remote.DataResult
-import com.gscarlos.tvshowscarlosg.data.remote.DataResultError
 import com.gscarlos.tvshowscarlosg.data.remote.TVShowsApiService
-import com.gscarlos.tvshowscarlosg.data.toTvShow
-import com.gscarlos.tvshowscarlosg.data.toTvShowDetail
-import com.gscarlos.tvshowscarlosg.data.toTvShowSearched
 import com.gscarlos.tvshowscarlosg.domain.model.TVShow
 import com.gscarlos.tvshowscarlosg.domain.model.TVShowDetail
 import kotlinx.coroutines.flow.Flow
@@ -72,12 +69,23 @@ class TVShowsRepositoryImpl @Inject constructor(
         flow {
             if (InternetUtils.isNetworkAvailable(context)) {
                 emit(DataResult.Loading)
-                apiService.getShowDetail(idShow).apply {
-                    if (isSuccessful && body() != null) {
-                        emit(DataResult.Success(data = body()!!.toTvShowDetail()))
+                val detailResponse = apiService.getTvShowDetail(idShow)
+                val castResponse = apiService.getCastFromTvShow(idShow)
+
+                if (detailResponse.isSuccessful && detailResponse.body() != null) {
+                    if (castResponse.isSuccessful && castResponse.body() != null) {
+                        emit(
+                            DataResult.Success(
+                                data = detailResponse.body()!!.toTvShowDetail(
+                                    castResponse.body()!!.map { it.person.toPerson() }
+                                )
+                            )
+                        )
                     } else {
-                        emit(DataResult.Error(DataResultError.ServiceError))
+                        emit(DataResult.Success(data = detailResponse.body()!!.toTvShowDetail()))
                     }
+                } else {
+                    emit(DataResult.Error(DataResultError.ServiceError))
                 }
             } else {
                 emit(DataResult.Error(DataResultError.NoInternetError))

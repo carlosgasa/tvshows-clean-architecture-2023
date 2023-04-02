@@ -1,7 +1,7 @@
 package com.gscarlos.tvshowscarlosg.data.datasource
 
-import com.gscarlos.tvshowscarlosg.data.remote.DataResult
-import com.gscarlos.tvshowscarlosg.data.remote.DataResultError
+import com.gscarlos.tvshowscarlosg.data.DataResult
+import com.gscarlos.tvshowscarlosg.data.DataResultError
 import com.gscarlos.tvshowscarlosg.domain.model.TVShow
 import com.gscarlos.tvshowscarlosg.domain.model.TVShowDetail
 import kotlinx.coroutines.flow.Flow
