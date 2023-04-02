@@ -91,7 +91,9 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel(), onClickItem: (String) -> 
                     modifier = Modifier.padding(contentPadding),
                     tvShows = searchedTvShows,
                     onClickItem = onClickItem
-                )
+                ) {
+                    viewModel.toggleFavorite(it)
+                }
             }
             else -> {
                 if (todayTvShows.isEmpty()) {
@@ -103,7 +105,9 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel(), onClickItem: (String) -> 
                         modifier = Modifier.padding(contentPadding),
                         tvShows = todayTvShows,
                         onClickItem = onClickItem
-                    )
+                    ) {
+                        viewModel.toggleFavorite(it)
+                    }
                 }
 
             }
@@ -115,7 +119,8 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel(), onClickItem: (String) -> 
 fun TodayTVShowsContent(
     modifier: Modifier = Modifier,
     tvShows: List<TVShow>,
-    onClickItem: (String) -> Unit
+    onClickItem: (String) -> Unit,
+    onFavorite: (TVShow) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -124,7 +129,8 @@ fun TodayTVShowsContent(
             TVShowItem(
                 show = it,
                 modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
-                onClickItem = onClickItem
+                onClickItem = onClickItem,
+                onFavorite = onFavorite
             )
         }
     }
@@ -135,7 +141,8 @@ fun TodayTVShowsContent(
 fun SearchedTVShowsContent(
     modifier: Modifier = Modifier,
     tvShows: List<TVShow>,
-    onClickItem: (String) -> Unit
+    onClickItem: (String) -> Unit,
+    onFavorite: (TVShow) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -144,7 +151,8 @@ fun SearchedTVShowsContent(
             TVShowItem(
                 show = it,
                 modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp),
-                onClickItem = onClickItem
+                onClickItem = onClickItem,
+                onFavorite = onFavorite
             )
         }
     }
@@ -160,12 +168,14 @@ fun ShowInfoState(
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Image(
-                modifier = Modifier.padding(
-                    top = 100.dp,
-                    end = 100.dp,
-                    start = 100.dp,
-                    bottom = 20.dp
-                ).size(150.dp),
+                modifier = Modifier
+                    .padding(
+                        top = 100.dp,
+                        end = 100.dp,
+                        start = 100.dp,
+                        bottom = 20.dp
+                    )
+                    .size(150.dp),
                 painter = painterResource(id = error.getImage()),
                 contentDescription = "No data found"
             )

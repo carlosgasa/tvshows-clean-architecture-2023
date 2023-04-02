@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.gscarlos.tvshowscarlosg.commons.toShortFormat
 import com.gscarlos.tvshowscarlosg.data.datasource.TVShowsRepository
 import com.gscarlos.tvshowscarlosg.data.DataResult
+import com.gscarlos.tvshowscarlosg.domain.model.TVShow
+import com.gscarlos.tvshowscarlosg.domain.usecases.UpdateFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,8 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: TVShowsRepository,
-
-    ) : ViewModel() {
+    private val updateFavoriteUseCase: UpdateFavoriteUseCase
+) : ViewModel() {
 
     private val _tvShowsState = MutableStateFlow<HomeViewState>(HomeViewState.Start)
     val tvShowsState = _tvShowsState.asStateFlow()
@@ -50,6 +52,10 @@ class HomeViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun toggleFavorite(tvShow: TVShow) {
+        updateFavoriteUseCase.updateFavorite(tvShow)
     }
 
 }

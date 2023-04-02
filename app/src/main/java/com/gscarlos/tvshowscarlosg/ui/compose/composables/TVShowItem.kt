@@ -3,9 +3,15 @@ package com.gscarlos.tvshowscarlosg.ui.compose.composables
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,7 +22,9 @@ import com.gscarlos.tvshowscarlosg.domain.model.TVShow
 import com.gscarlos.tvshowscarlosg.ui.compose.theme.*
 
 @Composable
-fun TVShowItem(show: TVShow, modifier: Modifier, onClickItem: (String) -> Unit) {
+fun TVShowItem(show: TVShow, modifier: Modifier, onClickItem: (String) -> Unit, onFavorite: (TVShow) -> Unit) {
+    var favorite by remember { mutableStateOf(false) }
+    favorite = show.favorite
     BaseCard(
         modifier = modifier
             .fillMaxWidth()
@@ -45,7 +53,7 @@ fun TVShowItem(show: TVShow, modifier: Modifier, onClickItem: (String) -> Unit) 
                 contentDescription = "ShowTv item showed"
             )
 
-            Column() {
+            Column(modifier.weight(1f)) {
                 Text(
                     text = show.name,
                     color = MaterialTheme.colors.onBackground,
@@ -58,6 +66,18 @@ fun TVShowItem(show: TVShow, modifier: Modifier, onClickItem: (String) -> Unit) 
                 Text(
                     text = show.dates,
                     color = MaterialTheme.colors.onBackground
+                )
+            }
+
+            IconButton(
+                onClick = {
+                    onFavorite(show)
+                    favorite = !favorite
+                }
+            ) {
+                Icon(
+                    imageVector = if (favorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                    contentDescription = "Search bar"
                 )
             }
         }
@@ -76,7 +96,8 @@ fun TVShowItemPreview() {
                 dates = "yyyy- mm-dd | 09:76",
                 imageMedium = ""
             ),
-            modifier = Modifier
+            modifier = Modifier,
+            onClickItem = {}
         ) {}
     }
 }

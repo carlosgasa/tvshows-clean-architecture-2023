@@ -6,4 +6,5 @@ data class TVShow(
     val network: String,
     val dates: String,
     val imageMedium: String,
+    val favorite: Boolean = false,
 )

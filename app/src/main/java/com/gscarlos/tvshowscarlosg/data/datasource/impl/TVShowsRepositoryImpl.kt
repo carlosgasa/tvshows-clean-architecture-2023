@@ -5,6 +5,7 @@ import android.util.Log
 import com.gscarlos.tvshowscarlosg.commons.InternetUtils
 import com.gscarlos.tvshowscarlosg.data.*
 import com.gscarlos.tvshowscarlosg.data.datasource.TVShowsRepository
+import com.gscarlos.tvshowscarlosg.data.local.database.AppDatabase
 import com.gscarlos.tvshowscarlosg.data.remote.TVShowsApiService
 import com.gscarlos.tvshowscarlosg.domain.model.TVShow
 import com.gscarlos.tvshowscarlosg.domain.model.TVShowDetail
@@ -14,6 +15,7 @@ import javax.inject.Inject
 
 class TVShowsRepositoryImpl @Inject constructor(
     private val apiService: TVShowsApiService,
+    private val db: AppDatabase,
     private val context: Context
 ) : TVShowsRepository {
     override suspend fun loadTVShows(date: String): Flow<DataResult<List<TVShow>, DataResultError>> =
@@ -24,7 +26,7 @@ class TVShowsRepositoryImpl @Inject constructor(
                     if (isSuccessful && body() != null) {
                         body()?.let { listResult ->
                             listResult.map { dto ->
-                                dto.toTvShow()
+                                dto.toTvShow(db.tvShowDao().tvShowExistsById(dto.id))
                             }.let {
                                 emit(DataResult.Success(it))
                             }
@@ -49,7 +51,9 @@ class TVShowsRepositoryImpl @Inject constructor(
                                 emit(DataResult.Error(DataResultError.ResultEmpty))
                             } else {
                                 listResult.map { dto ->
-                                    dto.toTvShowSearched()
+                                    dto.toTvShowSearched(
+                                        db.tvShowDao().tvShowExistsById(dto.show.id)
+                                    )
                                 }.let {
                                     emit(DataResult.Success(it))
                                 }
@@ -77,12 +81,19 @@ class TVShowsRepositoryImpl @Inject constructor(
                         emit(
                             DataResult.Success(
                                 data = detailResponse.body()!!.toTvShowDetail(
+                                    db.tvShowDao().tvShowExistsById(detailResponse.body()!!.id),
                                     castResponse.body()!!.map { it.person.toPerson() }
                                 )
                             )
                         )
                     } else {
-                        emit(DataResult.Success(data = detailResponse.body()!!.toTvShowDetail()))
+                        emit(
+                            DataResult.Success(
+                                data = detailResponse.body()!!.toTvShowDetail(
+                                    db.tvShowDao().tvShowExistsById(detailResponse.body()!!.id)
+                                )
+                            )
+                        )
                     }
                 } else {
                     emit(DataResult.Error(DataResultError.ResultEmpty))
