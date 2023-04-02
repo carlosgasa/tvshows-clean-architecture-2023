@@ -1,5 +1,6 @@
 package com.gscarlos.tvshowscarlosg.data
 
+import com.gscarlos.tvshowscarlosg.commons.Constants.NO_IMAGE_YET
 import com.gscarlos.tvshowscarlosg.data.remote.responses.PersonDto
 import com.gscarlos.tvshowscarlosg.data.remote.responses.Show
 import com.gscarlos.tvshowscarlosg.data.remote.responses.TVShowDto
@@ -13,7 +14,7 @@ fun TVShowDto.toTvShow() = TVShow(
     name,
     show.network?.name ?: "",
     "$airdate | $airtime",
-    show.image?.medium ?: "",
+    show.image?.medium ?: NO_IMAGE_YET,
 )
 
 fun TVShowSearchedDto.toTvShowSearched() = TVShow(
@@ -21,7 +22,7 @@ fun TVShowSearchedDto.toTvShowSearched() = TVShow(
     show.name,
     show.network?.name ?: "",
     "${show.schedule.time} | ${show.schedule.days.toCustomString()}",
-    show.image?.medium ?: "",
+    show.image?.medium ?: NO_IMAGE_YET,
 )
 
 fun Show.toTvShowDetail() = TVShowDetail(
@@ -29,7 +30,7 @@ fun Show.toTvShowDetail() = TVShowDetail(
     name,
     network?.name ?: "",
     "${schedule.time} | ${schedule.days.toCustomString()}",
-    image?.medium ?: "",
+    image?.medium ?: NO_IMAGE_YET,
     links?.self?.href ?: "",
     rating.average.toString(),
     summary?: "",
@@ -42,8 +43,8 @@ fun Show.toTvShowDetail(cast: List<Person>) = TVShowDetail(
     name,
     network?.name ?: "",
     "${schedule.time} | ${schedule.days.toCustomString()}",
-    image?.medium ?: "",
-    links?.self?.href ?: "",
+    image?.medium ?: NO_IMAGE_YET,
+    officialSite ?: "",
     rating.average.toString(),
     summary?: "",
     genres.toCustomString(),
@@ -53,7 +54,7 @@ fun Show.toTvShowDetail(cast: List<Person>) = TVShowDetail(
 fun PersonDto.toPerson() = Person(
     id,
     name,
-    image?.medium ?: "",
+    image?.medium ?: NO_IMAGE_YET,
 )
 
 private fun List<String>.toCustomString() = if (isEmpty()) ""

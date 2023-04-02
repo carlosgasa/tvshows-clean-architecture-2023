@@ -85,7 +85,7 @@ class TVShowsRepositoryImpl @Inject constructor(
                         emit(DataResult.Success(data = detailResponse.body()!!.toTvShowDetail()))
                     }
                 } else {
-                    emit(DataResult.Error(DataResultError.ServiceError))
+                    emit(DataResult.Error(DataResultError.ResultEmpty))
                 }
             } else {
                 emit(DataResult.Error(DataResultError.NoInternetError))

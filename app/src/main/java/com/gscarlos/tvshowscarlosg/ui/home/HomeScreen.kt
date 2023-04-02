@@ -169,7 +169,11 @@ fun ShowInfoState(
                 painter = painterResource(id = error.getImage()),
                 contentDescription = "No data found"
             )
-            Text(text = error.getMessage(context), Modifier.padding(16.dp))
+            Text(
+                text = error.getMessage(context),
+                Modifier.padding(16.dp),
+                color = MaterialTheme.colors.onBackground
+            )
             error.getAction(context)?.let {
                 OutlinedButton(onClick = { onClick?.invoke() }) {
                     Text(text = it, color = GreenLight)

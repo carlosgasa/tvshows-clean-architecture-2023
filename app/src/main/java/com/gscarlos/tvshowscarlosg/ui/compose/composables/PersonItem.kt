@@ -5,11 +5,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,18 +47,19 @@ fun PersonItem(person: Person) {
         )
         Text(
             text = person.name,
-            Modifier.size(100.dp, 20.dp),
+            Modifier.size(100.dp, 60.dp),
             textAlign = TextAlign.Center,
             maxLines = 1,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colors.onBackground,
         )
     }
 }
 
-@Preview
+@Preview(showBackground = false)
 @Composable
 fun PersonItemPreview() {
-    TvShowsTheme() {
+    TvShowsTheme(darkTheme = true) {
         PersonItem(
             person = Person(
                 id = 1,
