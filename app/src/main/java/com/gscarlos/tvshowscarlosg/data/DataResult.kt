@@ -14,6 +14,7 @@ sealed class DataResultError {
     object ResultEmpty : DataResultError()
     object NoInternetError : DataResultError()
     object NoInternetErrorSearch : DataResultError()
+    object NoFavorites : DataResultError()
     object ServiceError : DataResultError()
 
     fun getMessage(context: Context) =
@@ -22,6 +23,7 @@ sealed class DataResultError {
             NoInternetErrorSearch -> context.getString(R.string.error_internet)
             ResultEmpty -> context.getString(R.string.error_empty)
             ServiceError -> context.getString(R.string.error_service)
+            NoFavorites -> context.getString(R.string.error_favorites)
             NoError -> ""
         }
 
@@ -32,6 +34,7 @@ sealed class DataResultError {
             ResultEmpty -> null
             ServiceError -> null
             NoError -> null
+            NoFavorites -> null
         }
 
     fun getImage() =
@@ -40,6 +43,7 @@ sealed class DataResultError {
             NoInternetErrorSearch -> R.drawable.undraw_signal_searching_re_yl8n
             ResultEmpty -> R.drawable.undraw_no_data_re_kwbl
             ServiceError -> R.drawable.undraw_signal_searching_re_yl8n
+            NoFavorites -> R.drawable.undraw_no_data_re_kwbl
             NoError -> 0
         }
 }

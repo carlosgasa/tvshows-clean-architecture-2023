@@ -2,6 +2,7 @@ package com.gscarlos.tvshowscarlosg.ui.home
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,12 +48,16 @@ class HomeFragment : Fragment() {
         )
         setContent {
             TvShowsTheme {
-                HomeScreen() {
+                HomeScreen(onNavigateFavorites = {
+                    findNavController().navigate(
+                        R.id.action_homeFragment_to_favoritesFragment
+                    )
+                }, onClickItem = {
                     findNavController().navigate(
                         R.id.action_homeFragment_to_detailFragment,
                         DetailFragment.getBundle(it)
                     )
-                }
+                })
             }
         }
 

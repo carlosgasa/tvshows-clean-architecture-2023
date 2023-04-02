@@ -4,8 +4,10 @@
     <string name="error_internet">Parece que no tienes Internet, revisa tu conexión</string>
     <string name="error_empty">No se encontró información, intenta más tarde</string>
     <string name="error_service">Ocurrió algo inesperado, intenta más tarde</string>
+    <string name="error_favorites">Aún no tienes favoritos</string>
     <string name="txt_retry">Reintentar</string>
     <string name="txt_visit_site">Visitar sitio</string>
     <string name="lbl_image_show">image show</string>
+    <string name="txt_favs">Favoritos</string>
 
 </resources>

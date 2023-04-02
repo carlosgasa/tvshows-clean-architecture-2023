@@ -9,8 +9,7 @@ import com.gscarlos.tvshowscarlosg.data.local.database.AppDatabase
 import com.gscarlos.tvshowscarlosg.data.remote.TVShowsApiService
 import com.gscarlos.tvshowscarlosg.domain.model.TVShow
 import com.gscarlos.tvshowscarlosg.domain.model.TVShowDetail
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class TVShowsRepositoryImpl @Inject constructor(
@@ -102,4 +101,14 @@ class TVShowsRepositoryImpl @Inject constructor(
                 emit(DataResult.Error(DataResultError.NoInternetError))
             }
         }
+
+    override suspend fun getFavorites(): Flow<List<TVShow>> = channelFlow {
+        db.tvShowDao().getTVShows().collectLatest {
+            it.map { entity ->
+                entity.toTvShow()
+            }.let { list ->
+                send(list)
+            }
+        }
+    }
 }

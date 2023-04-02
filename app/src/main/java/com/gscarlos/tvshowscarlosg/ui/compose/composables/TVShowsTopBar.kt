@@ -96,7 +96,7 @@ fun SearchBar(
 }
 
 @Composable
-fun TVShowsTopBar(onSearch: (String) -> Unit, onClose: () -> Unit) {
+fun TVShowsTopBar(onSearch: (String) -> Unit, onClose: () -> Unit, onFavorite: () -> Unit) {
     var queryVisible by remember { mutableStateOf(false) }
     val focusRequester = FocusRequester()
 
@@ -124,7 +124,14 @@ fun TVShowsTopBar(onSearch: (String) -> Unit, onClose: () -> Unit) {
                         queryVisible = true
                     }
                 ) {
-                    Icon(imageVector = Icons.Filled.Search, contentDescription = "Search bar")
+                    Icon(imageVector = Icons.Filled.Search, contentDescription = "Favorite button")
+                }
+                IconButton(
+                    onClick = {
+                        onFavorite()
+                    }
+                ) {
+                    Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Search button")
                 }
             }
         }
@@ -135,6 +142,6 @@ fun TVShowsTopBar(onSearch: (String) -> Unit, onClose: () -> Unit) {
 @Composable
 fun SearchBarPreview() {
     TvShowsTheme() {
-        TVShowsTopBar({}) {}
+        TVShowsTopBar({},{}) {}
     }
 }

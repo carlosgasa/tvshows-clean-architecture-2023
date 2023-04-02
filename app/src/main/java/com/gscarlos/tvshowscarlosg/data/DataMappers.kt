@@ -70,6 +70,15 @@ fun TVShow.toEntity() = TVShowEntity(
     imageMedium,
 )
 
+fun TVShowEntity.toTvShow() = TVShow(
+    id,
+    name,
+    network,
+    dates,
+    imageMedium,
+    true
+)
+
 private fun List<String>.toCustomString() = if (isEmpty()) ""
 else {
     var result = ""
