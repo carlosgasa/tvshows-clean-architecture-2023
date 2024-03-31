@@ -56,3 +56,5 @@ Principales caracteristiscas
 
 ## Favoritos (compose)
 <img src="images/favoritos.png">
+
+
